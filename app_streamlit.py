@@ -3,10 +3,10 @@ import google.generativeai as genai
 import streamlit as st
 from azure.core.credentials import AzureKeyCredential
 from azure.search.documents import SearchClient
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 
 # .envファイルから環境変数を読み込む
-load_dotenv()
+#load_dotenv()
 
 # Azure AI Search の設定
 AZURE_SEARCH_ENDPOINT = os.getenv("AZURE_SEARCH_ENDPOINT")
