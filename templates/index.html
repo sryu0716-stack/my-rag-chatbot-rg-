@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>RAG チャットボット</title>
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; }
+        #chat-window { border: 1px solid #ccc; height: 400px; overflow-y: scroll; padding: 10px; }
+        .user-message { text-align: right; color: blue; }
+        .bot-message { text-align: left; color: green; }
+    </style>
+</head>
+<body>
+    <h1>RAG チャットボット</h1>
+    <div id="chat-window"></div>
+    <form id="chat-form">
+        <input type="text" id="user-input" placeholder="質問を入力してください..." style="width: 80%;">
+        <button type="submit">送信</button>
+    </form>
+    <script>
+        const chatWindow = document.getElementById('chat-window');
+        const chatForm = document.getElementById('chat-form');
+        const userInput = document.getElementById('user-input');
+
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const message = userInput.value;
+            if (message.trim() === '') return;
+
+            // ユーザーメッセージを表示
+            const userMessageDiv = document.createElement('div');
+            userMessageDiv.className = 'user-message';
+            userMessageDiv.textContent = `あなた: ${message}`;
+            chatWindow.appendChild(userMessageDiv);
+            userInput.value = '';
+
+            // サーバーにメッセージを送信
+            const response = await fetch('/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: message })
+            });
+            const data = await response.json();
+
+            // ボットの応答を表示
+            const botMessageDiv = document.createElement('div');
+            botMessageDiv.className = 'bot-message';
+            botMessageDiv.textContent = `チャットボット: ${data.response}`;
+            chatWindow.appendChild(botMessageDiv);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        });
+    </script>
+</body>
+</html>
