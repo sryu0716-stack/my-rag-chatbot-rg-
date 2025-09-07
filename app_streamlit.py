@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import streamlit_authenticator as stauth
 import yaml
@@ -16,13 +17,15 @@ authenticator = stauth.Authenticate(
 )
 
 # ログインフォームの表示
-name, authentication_status, username = authenticator.login('Login', 'main')
+name, authentication_status, username = authenticator.login('Login', location='main')
 
 if authentication_status:
-    # 認証成功時のコンテンツ
+    # 認証が成功した場合、以下のコードが実行されます
     authenticator.logout('Logout', 'main')
-    # 以下に既存のチャットボットのコードを記述
-
+    
+    # ここに、既存のチャットボットのコードをすべて貼り付けます
+    # （例: AZURE_SEARCH_ENDPOINT = st.secrets["AZURE_SEARCH_ENDPOINT"] から始まるすべてのコード）
+    
 elif authentication_status == False:
     st.error('Username/password is incorrect')
 
