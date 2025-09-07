@@ -17,7 +17,7 @@ authenticator = stauth.Authenticate(
 )
 
 # ログインフォームの表示
-name, authentication_status, username = authenticator.login('Login', location='main')
+name, authentication_status, username = authenticator.login('main')
 
 if authentication_status:
     # 認証が成功した場合、以下のコードが実行されます
