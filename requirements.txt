@@ -2,5 +2,5 @@ streamlit
 google-generativeai
 azure-search-documents
 python-dotenv
-streamlit-authenticator
-pyyaml
+streamlit-authenticator==0.2.2
+pyyaml==6.0
