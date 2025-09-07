@@ -9,12 +9,12 @@ from azure.search.documents import SearchClient
 #load_dotenv()
 
 # Azure AI Search の設定
-AZURE_SEARCH_ENDPOINT = os.getenv("AZURE_SEARCH_ENDPOINT")
-AZURE_SEARCH_ADMIN_KEY = os.getenv("AZURE_SEARCH_ADMIN_KEY")
-AZURE_SEARCH_INDEX_NAME = os.getenv("AZURE_SEARCH_INDEX_NAME")
+AZURE_SEARCH_ENDPOINT = st.secrets["AZURE_SEARCH_ENDPOINT"]
+AZURE_SEARCH_ADMIN_KEY = st.secrets["AZURE_SEARCH_ADMIN_KEY"]
+AZURE_SEARCH_INDEX_NAME = st.secrets["AZURE_SEARCH_INDEX_NAME"]
 
 # Google Generative AI の設定
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+GOOGLE_API_KEY = st.secrets["GOOGLE_API_KEY"]
 
 def search_documents(query):
     """Azure AI Searchでドキュメントを検索する"""
@@ -27,7 +27,8 @@ def search_documents(query):
     results = search_client.search(search_text=query)
     context = ""
     for result in results:
-        context += result['content'] + "\n"
+        context += "質問: " + result['question'] + "\n"
+        context += "回答: " + result['answer'] + "\n\n"
     return context
 
 def generate_answer(query, context):
@@ -47,7 +48,7 @@ def generate_answer(query, context):
     return response.text
 
 # StreamlitのUIを構築
-st.title("RAG チャットボット")
+st.title("チャットボットAzure AI Search について答えるよ")
 
 # チャット履歴を保持
 if "messages" not in st.session_state:
