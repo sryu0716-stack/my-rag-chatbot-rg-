@@ -1,3 +1,35 @@
+import streamlit as st
+import streamlit_authenticator as stauth
+import yaml
+from yaml.loader import SafeLoader
+
+# YAMLファイルの読み込み
+with open('./config.yaml') as file:
+    config = yaml.load(file, Loader=SafeLoader)
+
+# 認証オブジェクトの作成
+authenticator = stauth.Authenticate(
+    config['credentials'],
+    config['cookie']['name'],
+    config['cookie']['key'],
+    config['cookie']['expiry_days']
+)
+
+# ログインフォームの表示
+name, authentication_status, username = authenticator.login('Login', 'main')
+
+if authentication_status:
+    # 認証成功時のコンテンツ
+    authenticator.logout('Logout', 'main')
+    # 以下に既存のチャットボットのコードを記述
+
+elif authentication_status == False:
+    st.error('Username/password is incorrect')
+
+elif authentication_status == None:
+    st.warning('Please enter your username and password')
+
+
 import os
 import google.generativeai as genai
 import streamlit as st

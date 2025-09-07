@@ -1,0 +1,10 @@
+cookie:
+    expiry_days: 30
+    key: "secret_key"
+    name: "your_app_name"
+credentials:
+    usernames:
+        test:
+            email: "test@example.com"
+            name: "Test User"
+            password: "$2a$12$W9359qG1b0s3V7t1h6p6J.s/d7d8e.d8d7d8e.a2f"

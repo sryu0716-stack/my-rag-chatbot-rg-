@@ -2,3 +2,5 @@ streamlit
 google-generativeai
 azure-search-documents
 python-dotenv
+streamlit-authenticator
+pyyaml
