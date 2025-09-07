@@ -1,39 +1,4 @@
 import os
-import streamlit as st
-import streamlit_authenticator as stauth
-import yaml
-from yaml.loader import SafeLoader
-
-# YAMLファイルの読み込み
-with open('./config.yaml') as file:
-    config = yaml.load(file, Loader=SafeLoader)
-
-# 認証オブジェクトの作成
-authenticator = stauth.Authenticate(
-    config['credentials'],
-    config['cookie']['name'],
-    config['cookie']['key'],
-    config['cookie']['expiry_days']
-)
-
-# ログインフォームの表示
-name, authentication_status, username = authenticator.login('main')
-
-if authentication_status:
-    # 認証が成功した場合、以下のコードが実行されます
-    authenticator.logout('Logout', 'main')
-    
-    # ここに、既存のチャットボットのコードをすべて貼り付けます
-    # （例: AZURE_SEARCH_ENDPOINT = st.secrets["AZURE_SEARCH_ENDPOINT"] から始まるすべてのコード）
-    
-elif authentication_status == False:
-    st.error('Username/password is incorrect')
-
-elif authentication_status == None:
-    st.warning('Please enter your username and password')
-
-
-import os
 import google.generativeai as genai
 import streamlit as st
 from azure.core.credentials import AzureKeyCredential
