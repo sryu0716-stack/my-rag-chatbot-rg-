@@ -16,3 +16,4 @@ font = "sans serif"
 
 [client]
 toolbarMode = "minimal"
+showFooter = false
